@@ -19,7 +19,7 @@ const GlowCard = ({ children , identifier}) => {
     const UPDATE = (event) => {
       for (const CARD of CARDS) {
         const CARD_BOUNDS = CARD.getBoundingClientRect();
-
+  
         if (
           event?.x > CARD_BOUNDS.left - CONFIG.proximity &&
           event?.x < CARD_BOUNDS.left + CARD_BOUNDS.width + CONFIG.proximity &&
@@ -31,11 +31,11 @@ const GlowCard = ({ children , identifier}) => {
           CARD.style.setProperty('--active', CONFIG.opacity);
         }
 
-        const CARD_CENTER = [
+        const CARD_CENTER = [        
           CARD_BOUNDS.left + CARD_BOUNDS.width * 0.5,
           CARD_BOUNDS.top + CARD_BOUNDS.height * 0.5,
         ];
-
+          
         let ANGLE =
           (Math.atan2(event?.y - CARD_CENTER[1], event?.x - CARD_CENTER[0]) *
             180) /
@@ -46,6 +46,7 @@ const GlowCard = ({ children , identifier}) => {
         CARD.style.setProperty('--start', ANGLE + 90);
       }
     };
+    
 
     document.body.addEventListener('pointermove', UPDATE);
 
