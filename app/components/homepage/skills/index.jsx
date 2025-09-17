@@ -1,11 +1,25 @@
 // @flow strict
+"use client"
 
 import { skillsData } from "@/utils/data/skills";
 import { skillsImage } from "@/utils/skill-image";
 import Image from "next/image";
-import Marquee from "react-fast-marquee";
+import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
+
+// Dynamically import Marquee to avoid SSR issues
+const Marquee = dynamic(() => import("react-fast-marquee"), {
+  ssr: false,
+  loading: () => <div className="animate-pulse h-32 bg-gray-800 rounded-lg"></div>
+});
 
 function Skills() {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
     <div id="skills" className="relative z-50 border-t my-12 lg:my-24 border-[#25213b]">
       <div className="w-[100px] h-[100px] bg-violet-100 rounded-full absolute top-6 left-[42%] translate-x-1/2 filter blur-3xl  opacity-20"></div>
