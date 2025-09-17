@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 const GlowCard = ({ children , identifier}) => {
   useEffect(() => {
     // Check if we're in the browser environment
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined' || typeof document === 'undefined') return;
 
     const CONTAINER = document.querySelector(`.glow-container-${identifier}`);
     const CARDS = document.querySelectorAll(`.glow-card-${identifier}`);
@@ -71,7 +71,9 @@ const GlowCard = ({ children , identifier}) => {
 
     // Cleanup event listener
     return () => {
-      document.body.removeEventListener('pointermove', UPDATE);
+      if (typeof document !== 'undefined') {
+        document.body.removeEventListener('pointermove', UPDATE);
+      }
     };
   }, [identifier]);
 
